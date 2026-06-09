@@ -1,0 +1,9 @@
+{
+  "id": 1,
+  "name": "Clínica Teste",
+  "address": "Rua das Flores, 123 — Centro",
+  "phone": "(48) 3333-4444",
+  "active": true,
+  "allowClientBooking": true,
+  "logoUrl": null
+}
