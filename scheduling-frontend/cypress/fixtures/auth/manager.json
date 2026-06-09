@@ -1,0 +1,14 @@
+{
+  "accessToken": "fake-manager-access-token",
+  "refreshToken": "fake-manager-refresh-token",
+  "user": {
+    "id": 2,
+    "name": "Manager User",
+    "email": "manager@test.com",
+    "role": "MANAGER",
+    "companyId": 1,
+    "companyName": "Clínica Teste",
+    "phone": null,
+    "active": true
+  }
+}
