@@ -1,0 +1,14 @@
+{
+  "accessToken": "fake-admin-access-token",
+  "refreshToken": "fake-admin-refresh-token",
+  "user": {
+    "id": 1,
+    "name": "Admin User",
+    "email": "admin@test.com",
+    "role": "ADMIN",
+    "companyId": 1,
+    "companyName": "Clínica Teste",
+    "phone": null,
+    "active": true
+  }
+}
