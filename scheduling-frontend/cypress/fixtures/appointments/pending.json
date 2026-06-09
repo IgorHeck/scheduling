@@ -1,0 +1,30 @@
+[
+  {
+    "id": 101,
+    "status": "PENDING",
+    "clientName": "João Silva",
+    "clientEmail": "joao@example.com",
+    "professionalName": "Dr. Carlos",
+    "professionalId": 10,
+    "companyId": 1,
+    "companyName": "Clínica Teste",
+    "startAt": "2026-06-15T09:00:00",
+    "endAt": "2026-06-15T09:30:00",
+    "notes": "Primeira consulta",
+    "createdAt": "2026-06-01T10:00:00"
+  },
+  {
+    "id": 105,
+    "status": "PENDING",
+    "clientName": "Lucas Martins",
+    "clientEmail": "lucas@example.com",
+    "professionalName": "Dra. Ana",
+    "professionalId": 11,
+    "companyId": 1,
+    "companyName": "Clínica Teste",
+    "startAt": "2026-06-16T11:00:00",
+    "endAt": "2026-06-16T11:30:00",
+    "notes": null,
+    "createdAt": "2026-06-03T15:00:00"
+  }
+]
