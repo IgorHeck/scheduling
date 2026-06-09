@@ -1,0 +1,14 @@
+{
+  "accessToken": "fake-client-access-token",
+  "refreshToken": "fake-client-refresh-token",
+  "user": {
+    "id": 3,
+    "name": "Cliente User",
+    "email": "client@test.com",
+    "role": "CLIENT",
+    "companyId": null,
+    "companyName": null,
+    "phone": null,
+    "active": true
+  }
+}
