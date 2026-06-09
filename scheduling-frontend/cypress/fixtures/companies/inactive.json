@@ -1,0 +1,9 @@
+{
+  "id": 2,
+  "name": "Clínica Inativa",
+  "address": "Rua das Rosas, 456",
+  "phone": null,
+  "active": false,
+  "allowClientBooking": true,
+  "logoUrl": null
+}

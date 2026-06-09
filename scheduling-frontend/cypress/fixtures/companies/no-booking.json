@@ -1,0 +1,9 @@
+{
+  "id": 3,
+  "name": "Clínica Sem Booking",
+  "address": "Rua das Violetas, 789",
+  "phone": null,
+  "active": true,
+  "allowClientBooking": false,
+  "logoUrl": null
+}

@@ -1,0 +1,52 @@
+[
+  {
+    "id": 1,
+    "name": "Admin User",
+    "email": "admin@test.com",
+    "role": "ADMIN",
+    "companyId": 1,
+    "companyName": "Clínica Teste",
+    "phone": null,
+    "active": true
+  },
+  {
+    "id": 2,
+    "name": "Manager User",
+    "email": "manager@test.com",
+    "role": "MANAGER",
+    "companyId": 1,
+    "companyName": "Clínica Teste",
+    "phone": null,
+    "active": true
+  },
+  {
+    "id": 4,
+    "name": "Outro Manager",
+    "email": "outro@test.com",
+    "role": "MANAGER",
+    "companyId": null,
+    "companyName": null,
+    "phone": "(48) 99999-0000",
+    "active": true
+  },
+  {
+    "id": 5,
+    "name": "Cliente Inativo",
+    "email": "inativo@test.com",
+    "role": "CLIENT",
+    "companyId": null,
+    "companyName": null,
+    "phone": null,
+    "active": false
+  },
+  {
+    "id": 3,
+    "name": "Cliente User",
+    "email": "client@test.com",
+    "role": "CLIENT",
+    "companyId": null,
+    "companyName": null,
+    "phone": null,
+    "active": true
+  }
+]
