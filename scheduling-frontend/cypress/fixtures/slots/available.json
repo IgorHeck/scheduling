@@ -1,0 +1,23 @@
+[
+  {
+    "startAt": "2026-06-20T09:00:00",
+    "endAt": "2026-06-20T09:30:00",
+    "professionalId": 10,
+    "professionalName": "Dr. Carlos",
+    "available": true
+  },
+  {
+    "startAt": "2026-06-20T09:30:00",
+    "endAt": "2026-06-20T10:00:00",
+    "professionalId": 10,
+    "professionalName": "Dr. Carlos",
+    "available": true
+  },
+  {
+    "startAt": "2026-06-20T10:00:00",
+    "endAt": "2026-06-20T10:30:00",
+    "professionalId": 10,
+    "professionalName": "Dr. Carlos",
+    "available": false
+  }
+]
