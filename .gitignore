@@ -1,0 +1,66 @@
+# ============================================================
+# .gitignore do monorepo scheduling
+# ============================================================
+
+# === Segredos / variáveis de ambiente ===
+# Nenhum .env real vai pro git.
+.env
+.env.*
+**/.env
+**/.env.*
+# Exceção: o template público (sem segredos) é versionado.
+!.env.example
+!**/.env.example
+
+# === Instruções do Claude (não versionar) ===
+CLAUDE.md
+**/CLAUDE.md
+.claude/
+**/.claude/
+
+# === IDE / editores ===
+.idea/
+**/.idea/
+.vscode/
+**/.vscode/
+*.iml
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+
+# === Obsidian (config do app) ===
+.obsidian/
+**/.obsidian/
+
+# === Backend — Java / Maven ===
+scheduling-api/target/
+**/target/
+*.class
+# Uploads em runtime (logos de empresas, etc.)
+scheduling-api/uploads/
+
+# === Frontend — Node / Vite ===
+**/node_modules/
+scheduling-frontend/dist/
+scheduling-frontend/dist-ssr/
+scheduling-frontend/coverage/
+**/*.local
+
+# === Logs ===
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+logs/
+
+# === Cypress (artefatos de execução) ===
+scheduling-frontend/cypress/videos/
+scheduling-frontend/cypress/screenshots/
+
+# === SO ===
+.DS_Store
+Thumbs.db
