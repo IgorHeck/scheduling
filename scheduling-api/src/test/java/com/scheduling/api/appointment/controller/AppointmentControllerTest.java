@@ -17,6 +17,8 @@ import com.scheduling.api.user.repository.UserRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.ImportAutoConfiguration;
+import org.springframework.boot.autoconfigure.aop.AopAutoConfiguration;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.context.annotation.Import;
@@ -41,6 +43,9 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @WebMvcTest(AppointmentController.class)
 @Import(SecurityConfig.class)
+// O controller tem @PreAuthorize e implementa AppointmentControllerDoc. Sem a config de AOP do Boot
+// (proxy por classe), o slice cria um proxy JDK só da interface e as rotas não são registradas.
+@ImportAutoConfiguration(AopAutoConfiguration.class)
 class AppointmentControllerTest {
 
     @Autowired MockMvc      mockMvc;

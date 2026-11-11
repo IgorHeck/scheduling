@@ -29,7 +29,7 @@ DECLARE
   v_felipe   BIGINT;
   v_isabela  BIGINT;
 
-  PWD CONSTANT TEXT := '$2a$12$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi';
+  PWD CONSTANT TEXT := '$2a$12$O7R8okVZAmRUTzh2p.bZ7un9MgA6GDZL7PuyNjhMoETbZnVOHiia2';
 
 BEGIN
 
@@ -41,7 +41,16 @@ BEGIN
     SELECT id INTO v_co FROM companies WHERE name ILIKE '%saude plena%' LIMIT 1;
   END IF;
   IF v_co IS NULL THEN
-    RAISE EXCEPTION 'Empresa Clínica Saúde Plena não encontrada. Verifique o nome no banco.';
+    -- Banco novo (clone do repositório, CI): cria a clínica de demonstração
+    INSERT INTO companies (name, description, address, phone, allow_client_booking, allow_cliente_booking, active, created_at)
+    VALUES ('Clínica Saúde Plena', 'Clínica de demonstração criada pelo seed.', 'Rua das Flores, 120 - Centro', '(11) 3200-0100',
+            true, true, true, NOW() - INTERVAL '8 months')
+    RETURNING id INTO v_co;
+
+    -- A V10 aponta o admin para a company 1 antes de existir empresa; garante o vínculo N:N
+    INSERT INTO user_companies (user_id, company_id)
+    SELECT id, v_co FROM users WHERE company_id = v_co
+    ON CONFLICT DO NOTHING;
   END IF;
 
   -- ════════════════════════════════════════════════════════════

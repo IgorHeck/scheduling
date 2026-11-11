@@ -1,46 +1,50 @@
 package com.scheduling.api.integration;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.boot.test.web.server.LocalServerPort;
+import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.DynamicPropertyRegistry;
 import org.springframework.test.context.DynamicPropertySource;
 import org.testcontainers.containers.GenericContainer;
 import org.testcontainers.containers.PostgreSQLContainer;
-import org.testcontainers.junit.jupiter.Container;
-import org.testcontainers.junit.jupiter.Testcontainers;
 
 import com.scheduling.api.mail.MailService;
 
 /**
  * Base para testes de integração com Testcontainers.
  *
- * Requer Docker em execução. Os containers são compartilhados entre todos os testes
- * da mesma classe (estáticos). O MailService é mockado para evitar necessidade de servidor SMTP.
+ * Requer Docker em execução. Os containers seguem o padrão "singleton container": sobem uma única
+ * vez para toda a execução e são compartilhados por todas as classes de teste. Assim o contexto do
+ * Spring, que fica em cache entre as classes, sempre aponta para containers vivos.
+ * O MailService é mockado para evitar necessidade de servidor SMTP.
  */
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @ActiveProfiles("test")
-@Testcontainers
 public abstract class BaseIntegrationTest {
 
-    // ── Containers ────────────────────────────────────────────────────────────
+    // ── Containers (singleton, parados pelo Ryuk ao fim da JVM) ──────────────
 
     @SuppressWarnings("resource")
-    @Container
-    static PostgreSQLContainer<?> postgres =
+    static final PostgreSQLContainer<?> postgres =
             new PostgreSQLContainer<>("postgres:16-alpine")
                     .withDatabaseName("scheduling_test")
                     .withUsername("test")
                     .withPassword("test");
 
     @SuppressWarnings("resource")
-    @Container
-    static GenericContainer<?> redis =
+    static final GenericContainer<?> redis =
             new GenericContainer<>("redis:7-alpine")
                     .withExposedPorts(6379);
+
+    static {
+        postgres.start();
+        redis.start();
+    }
 
     @DynamicPropertySource
     static void configure(DynamicPropertyRegistry registry) {
@@ -59,9 +63,21 @@ public abstract class BaseIntegrationTest {
     @Autowired
     protected TestRestTemplate restTemplate;
 
+    @Autowired
+    private StringRedisTemplate redisTemplate;
+
     /** Mockado para que nenhum teste necessite de servidor SMTP real. */
     @MockBean
     protected MailService mailService;
+
+    /**
+     * Zera o Redis antes de cada teste: contadores de rate limit, blacklist de tokens e cache de
+     * slots não vazam de um teste para outro (ex.: o 6º cadastro seguido seria bloqueado com 429).
+     */
+    @BeforeEach
+    void resetRedis() {
+        redisTemplate.getConnectionFactory().getConnection().serverCommands().flushAll();
+    }
 
     // ── Utilitários ───────────────────────────────────────────────────────────
 
