@@ -46,6 +46,16 @@ mvn test -Dtest="AuthFlowIT,AppointmentFlowIT,RateLimitIT"
 mvn test
 ```
 
+### Build completo, igual ao CI (unitários + integração + cobertura)
+
+```bash
+./mvnw verify
+```
+
+- `*Test` rodam no Surefire (fase `test`); `*IT` rodam no Failsafe (fase `integration-test`), com Docker.
+- O JaCoCo instrumenta os dois e gera o relatório em `target/site/jacoco/index.html`.
+- No GitHub Actions (`.github/workflows/ci.yml`) o mesmo comando roda a cada push e PR, e o relatório é publicado como artefato `jacoco-report`. Ver [[overview]].
+
 ### Via IDE (IntelliJ IDEA)
 - Clique com botão direito na pasta `src/test/java` → **Run All Tests**
 - Para rodar apenas unitários: botão direito em cada classe

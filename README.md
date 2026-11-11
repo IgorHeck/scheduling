@@ -19,13 +19,23 @@ agendamento público sem cadastro e notificações em tempo real.
 ![Vite](https://img.shields.io/badge/Vite-8-646CFF?style=for-the-badge&logo=vite&logoColor=white)
 ![Docker](https://img.shields.io/badge/Docker-Compose-2496ED?style=for-the-badge&logo=docker&logoColor=white)
 
+[![CI](https://github.com/IgorHeck/scheduling/actions/workflows/ci.yml/badge.svg)](https://github.com/IgorHeck/scheduling/actions/workflows/ci.yml)
+
+<!-- **[Demo ao vivo](https://SEU-LINK-DA-DEMO)** · usuário demo: `gestor@demo.com` / `demo1234` -->
+
 </div>
+
+![Dashboard do Scheduling](docs/screenshots/dashboard.png)
+<!-- TODO(Igor): trocar pelo GIF do fluxo de agendamento público em docs/screenshots/demo.gif -->
+
+
 
 ---
 
 ## 📑 Índice
 
 - [Sobre o projeto](#-sobre-o-projeto)
+- [Destaques técnicos](#-destaques-técnicos)
 - [Funcionalidades](#-funcionalidades)
 - [Screenshots](#-screenshots)
 - [Arquitetura](#-arquitetura)
@@ -63,6 +73,18 @@ O sistema é organizado em torno de **quatro papéis** com permissões distintas
 
 ---
 
+## 💡 Destaques técnicos
+
+- **Sessão stateless com revogação real:** access token de 15 min, refresh de 7 dias guardado em banco e blacklist no Redis no logout.
+- **Schema 100% versionado** com Flyway (`ddl-auto: validate`); o Hibernate só valida.
+- **Disponibilidade em cache** no Redis (TTL de 2 min, invalidado a cada mudança de agenda) para não recalcular slots a cada consulta.
+- **Tempo real sem polling** via Server-Sent Events para o painel da equipe.
+- **Testes de integração com banco real** usando Testcontainers; E2E do fluxo de booking com Cypress; cobertura medida com JaCoCo no CI.
+- **Multi-tenancy por empresa:** rotas de painel sob `/:companyId/`, com permissões por papel.
+- **Documentação OpenAPI isolada do controller** (interfaces `*ControllerDoc`).
+
+---
+
 ## ✨ Funcionalidades
 
 ### Autenticação & segurança
@@ -96,9 +118,6 @@ O sistema é organizado em torno de **quatro papéis** com permissões distintas
 ---
 
 ## 📸 Screenshots
-
-> As imagens abaixo ficam em [`docs/screenshots/`](docs/screenshots). Substitua os arquivos
-> pelos prints reais da aplicação mantendo os mesmos nomes para que apareçam aqui.
 
 <div align="center">
 
@@ -136,13 +155,6 @@ flowchart LR
     A -- "cache de slots / tokens" --> R
     A -- "e-mails" --> M
 ```
-
-**Decisões de destaque**
-- Sessão **stateless**: JWT curto + refresh em banco com revogação explícita.
-- Schema 100% gerido por **Flyway** (`ddl-auto: validate`); Hibernate apenas valida.
-- Documentação **OpenAPI** isolada do controller (interfaces `*ControllerDoc`).
-- Cache de slots disponíveis no **Redis** (TTL 2 min) e blacklist de tokens no logout.
-- Multi-tenancy por empresa: rotas de painel sob `/:companyId/`.
 
 ---
 
@@ -303,8 +315,11 @@ stateDiagram-v2
 **Backend** (JUnit + Testcontainers):
 ```bash
 cd scheduling-api
-./mvnw test
+./mvnw test     # unitários e slice (sem Docker)
+./mvnw verify   # + integração com Testcontainers (precisa de Docker) e relatório de cobertura em target/site/jacoco
 ```
+
+O CI no GitHub Actions roda `./mvnw verify` e os testes e o build do frontend a cada push e pull request; o relatório do JaCoCo fica disponível como artefato da execução.
 
 **Frontend** (Vitest unitários + Cypress E2E):
 ```bash
