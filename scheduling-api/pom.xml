@@ -22,7 +22,7 @@
     <jjwt.version>0.12.5</jjwt.version>
     <mapstruct.version>1.5.5.Final</mapstruct.version>
     <springdoc.version>2.5.0</springdoc.version>
-    <testcontainers.version>1.19.8</testcontainers.version>
+    <testcontainers.version>1.21.4</testcontainers.version>
   </properties>
 
   <dependencyManagement>
