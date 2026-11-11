@@ -38,7 +38,7 @@ services:
     ports:
       - "5433:5432"
     volumes:
-      - postgres_data:/var/lib/postgresql/data
+      - db_data:/var/lib/postgresql/data
     healthcheck:
       test: ["CMD-SHELL", "pg_isready -U ${DB_USER:-postgres}"]
       interval: 5s
@@ -63,9 +63,7 @@ services:
       - scheduling-net
 
 volumes:
-  postgres_data:
-    external: true
-    name: scheduling-api_postgres_data
+  db_data:
   logo_uploads:
 
 networks:
