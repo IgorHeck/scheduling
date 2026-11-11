@@ -25,8 +25,7 @@ agendamento público sem cadastro e notificações em tempo real.
 
 </div>
 
-![Dashboard do Scheduling](docs/screenshots/dashboard.png)
-<!-- TODO(Igor): trocar pelo GIF do fluxo de agendamento público em docs/screenshots/demo.gif -->
+![Agendamento público: escolher o dia, o horário, preencher os dados e enviar](docs/screenshots/demo.gif)
 
 
 
@@ -245,6 +244,14 @@ docker compose up --build
 | API | http://localhost:8080 |
 | Swagger UI | http://localhost:8080/swagger-ui.html |
 | Mailhog (caixa de e-mail de dev) | http://localhost:8025 |
+
+O banco sobe com dados de demonstração (Clínica Saúde Plena, profissionais, clientes e agendamentos). Todos os usuários do seed usam a senha `password`:
+
+| Papel | E-mail | Onde testar |
+|---|---|---|
+| Admin | `admin@scheduling.com` | http://localhost:5173/login |
+| Gestor / profissional | `rafael.mendes@saudeplena.com` | http://localhost:5173/login |
+| Agendamento público | sem login | http://localhost:5173/1/booking |
 
 ### Opção 2 — Manual (desenvolvimento)
 
