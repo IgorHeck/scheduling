@@ -29,7 +29,7 @@ DECLARE
   v_felipe   BIGINT;
   v_isabela  BIGINT;
 
-  PWD CONSTANT TEXT := '$2a$12$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi';
+  PWD CONSTANT TEXT := '$2a$12$O7R8okVZAmRUTzh2p.bZ7un9MgA6GDZL7PuyNjhMoETbZnVOHiia2';
 
 BEGIN
 
